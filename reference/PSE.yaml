@@ -1,0 +1,290 @@
+openapi: 3.1.0
+info:
+  title: PSE
+  version: '1.0'
+  description: Método integración PSE.
+servers:
+  - url: 'https://api.placetopay.com/soap/pse/v11/?wsdl'
+    description: WSDL Producción
+  - description: Servicio Producción
+    url: 'https://api.placetopay.com/soap/pse/v11/'
+  - description: WSDL Pruebas
+    url: 'https://test.placetopay.com/soap/pse/v11/?wsdl'
+  - description: Servicio Pruebas
+    url: 'https://test.placetopay.com/soap/pse/v11/'
+paths:
+  /createTransaction:
+    post:
+      summary: createTransaction
+      operationId: post-createTransaction
+      description: 'Solicita la creación de una transacción. En los datos de la solicitud se específica quién es el pagador, el comprador y el despacho. Así mismo para cuál de los bancos habilitados se hace la petición y a que URL de retorno debe el banco redirigir al cuentahabiente.'
+      requestBody:
+        content:
+          application/xml:
+            schema:
+              type: object
+              properties: {}
+            examples:
+              Ejemplo:
+                value: |-
+                  <Envelope xmlns="http://schemas.xmlsoap.org/soap/envelope/">
+                      <Body>
+                          <createTransaction xmlns="https://placetopay.com/soap/pse">
+                              <auth xmlns="">
+                                  <login>6dd490faf9cb87a9862245da41170ff2</login>
+                                  <tranKey>4f69c4a59d5bf4d61d5d887fb8ba599351f6d31a</tranKey>
+                                  <seed>2021-04-30T16:33:57+00:00</seed>
+                                  <!-- Optional -->
+                                  <additional>
+                                      <!-- Optional -->
+                                      <item>
+                                          <name>Additional</name>
+                                          <value>Info</value>
+                                      </item>
+                                  </additional>
+                              </auth>
+                              <transaction xmlns="">
+                                  <bankCode>1022</bankCode>
+                                  <bankInterface>0</bankInterface>
+                                  <returnURL>http://localhost/PSE/1.php</returnURL>
+                                  <reference>TEST_20210430_113634</reference>
+                                  <description>Payment test</description>
+                                  <language>ES</language>
+                                  <currency>COP</currency>
+                                  <totalAmount>23000</totalAmount>
+                                  <taxAmount>0</taxAmount>
+                                  <devolutionBase>0</devolutionBase>
+                                  <tipAmount>0</tipAmount>
+                                  <payer>
+                                      <documentType>CC</documentType>
+                                      <document>1000000000</document>
+                                      <firstName>Name Test</firstName>
+                                      <lastName>Lastname Test</lastName>
+                                      <company>Evertec</company>
+                                      <emailAddress>testing@mail.co</emailAddress>
+                                      <address>Street test</address>
+                                      <city>Medellín</city>
+                                      <province>Antioquia</province>
+                                      <country>CO</country>
+                                      <phone>5000000</phone>
+                                      <mobile>3000000000</mobile>
+                                      <postalCode>000000</postalCode>
+                                  </payer>
+                                  <buyer>
+                                     <documentType>CC</documentType>
+                                      <document>1000000000</document>
+                                      <firstName>Name Test</firstName>
+                                      <lastName>Lastname Test</lastName>
+                                      <company>Evertec</company>
+                                      <emailAddress>testing@mail.co</emailAddress>
+                                      <address>Street test</address>
+                                      <city>Medellín</city>
+                                      <province>Antioquia</province>
+                                      <country>CO</country>
+                                      <phone>5000000</phone>
+                                      <mobile>3000000000</mobile>
+                                      <postalCode>000000</postalCode>
+                                  </buyer>
+                                  <shipping>
+                                     <documentType>CC</documentType>
+                                      <document>1000000000</document>
+                                      <firstName>Name Test</firstName>
+                                      <lastName>Lastname Test</lastName>
+                                      <company>Evertec</company>
+                                      <emailAddress>testing@mail.co</emailAddress>
+                                      <address>Street test</address>
+                                      <city>Medellín</city>
+                                      <province>Antioquia</province>
+                                      <country>CO</country>
+                                      <phone>5000000</phone>
+                                      <mobile>3000000000</mobile>
+                                      <postalCode>000000</postalCode>
+                                  </shipping>
+                                  <ipAddress>192.168.1.12</ipAddress>
+                                  <userAgent>Mozilla/5.0 (Windows NT 10.0; Win64; x64)</userAgent>
+                                  <additionalData/>
+                              </transaction>
+                          </createTransaction>
+                      </Body>
+                  </Envelope>
+  /createTransactionMultiCredit:
+    post:
+      summary: createTransactionMultiCredit
+      operationId: post-createTransactionMultiCredit
+      description: 'Solicita la creación de una transacción con dispersión de fondos. En los datos de la solicitud se especifica quién es el pagador, el comprador y el despacho. Así mismo para cuál de los bancos habilitados se hace la petición y a que URL de retorno debe el banco redirigir al cuentahabiente. Así como cada uno de los créditos a aplicar para cada uno de los servicios asociados. Tenga en cuenta que un servicio multicrédito tiene asociado unos servicios dependientes. Siempre deberá cobrar a todos los servicios dependientes así el valor para una de los créditos sea cero.'
+      requestBody:
+        content:
+          application/xml:
+            schema:
+              type: object
+              properties: {}
+            examples:
+              Ejemplo:
+                value: |-
+                  <Envelope xmlns="http://schemas.xmlsoap.org/soap/envelope/">
+                      <Body>
+                          <createTransactionMultiCredit xmlns="https://placetopay.com/soap/pse">
+                              <auth xmlns="">
+                                  <login>6dd490faf9cb87a9862245da41170ff2</login>
+                                  <tranKey>4f69c4a59d5bf4d61d5d887fb8ba599351f6d31a</tranKey>
+                                  <seed>2021-04-30T16:33:57+00:00</seed>
+                                  <!-- Optional -->
+                                  <additional>
+                                      <!-- Optional -->
+                                      <item>
+                                          <name>Additional</name>
+                                          <value>Info</value>
+                                      </item>
+                                  </additional>
+                              </auth>
+                              <transaction xmlns="">
+                                  <reference>TEST_20210430_113634</reference>
+                                  <description>Payment test</description>
+                                  <language>ES</language>
+                                  <currency>COP</currency>
+                                  <totalAmount>55000</totalAmount>
+                                  <taxAmount>0</taxAmount>
+                                  <devolutionBase>0</devolutionBase>
+                                  <tipAmount>0</tipAmount>
+                                  <payer>
+                                      <documentType>CC</documentType>
+                                      <document>1000000000</document>
+                                      <firstName>Name Test</firstName>
+                                      <lastName>Lastname Test</lastName>
+                                      <company>Evertec</company>
+                                      <emailAddress>testing@mail.co</emailAddress>
+                                      <address>Street test</address>
+                                      <city>Medellín</city>
+                                      <province>Antioquia</province>
+                                      <country>CO</country>
+                                      <phone>5000000</phone>
+                                      <mobile>3000000000</mobile>
+                                      <postalCode>000000</postalCode>
+                                  </payer>
+                                  <buyer>
+                                      <documentType>CC</documentType>
+                                      <document>1000000000</document>
+                                      <firstName>Name Test</firstName>
+                                      <lastName>Lastname Test</lastName>
+                                      <company>Evertec</company>
+                                      <emailAddress>testing@mail.co</emailAddress>
+                                      <address>Street test</address>
+                                      <city>Medellín</city>
+                                      <province>Antioquia</province>
+                                      <country>CO</country>
+                                      <phone>5000000</phone>
+                                      <mobile>3000000000</mobile>
+                                      <postalCode>000000</postalCode>
+                                  </buyer>
+                                  <shipping>
+                                      <documentType>CC</documentType>
+                                      <document>1000000000</document>
+                                      <firstName>Name Test</firstName>
+                                      <lastName>Lastname Test</lastName>
+                                      <company>Evertec</company>
+                                      <emailAddress>testing@mail.co</emailAddress>
+                                      <address>Street test</address>
+                                      <city>Medellín</city>
+                                      <province>Antioquia</province>
+                                      <country>CO</country>
+                                      <phone>5000000</phone>
+                                      <mobile>3000000000</mobile>
+                                      <postalCode>000000</postalCode>
+                                  </shipping>
+                                  <ipAddress>192.168.1.12</ipAddress>
+                                  <userAgent>Mozilla/5.0 (Windows NT 10.0; Win64; x64)</userAgent>
+                                  <additionalData/>
+                                  <credits>
+                                      <!-- Optional -->
+                                      <item>
+                                          <entityCode>90029922801</entityCode>
+                                          <serviceCode>77700101</serviceCode>
+                                          <amountValue>10000</amountValue>
+                                          <taxValue>0</taxValue>
+                                          <description>Payment split 1</description>
+                                      </item>
+                                      <item>
+                                          <entityCode>90029922801</entityCode>
+                                          <serviceCode>77700102</serviceCode>
+                                          <amountValue>45000</amountValue>
+                                          <taxValue>0</taxValue>
+                                          <description>Payment split 2</description>
+                                      </item>
+                                  </credits>
+                                  <bankCode>1022</bankCode>
+                                  <bankInterface>0</bankInterface>
+                                  <returnURL>http://localhost/PSE/1.php</returnURL>
+                              </transaction>
+                          </createTransactionMultiCredit>
+                      </Body>
+                  </Envelope>
+  /getTransactionInformation:
+    post:
+      summary: getTransactionInformation
+      operationId: post-getTransactionInformation
+      description: "Obtiene la información de una transacción, debe ser consultado para cualquier operación previamente creada con el método \t[createTransaction](Métodos-de-interfaz-PSE.md#createtransaction) o [createTransactionMultiCredit](Métodos-de-interfaz-PSE.md#createtransactionmulticredit) ya sea cuando regresa del banco o cuando al menos han transcurrido 8 minutos desde que el cliente fue redirigido a la interfaz del banco. Deberá consumirse en intervalos de al menos cada 15 minutos hasta que tenga un estado de transacción diferente a PENDING."
+      requestBody:
+        content:
+          application/xml:
+            schema:
+              type: object
+              properties: {}
+            examples:
+              Ejemplo:
+                value: |-
+                  <Envelope xmlns="http://schemas.xmlsoap.org/soap/envelope/">
+                      <Body>
+                          <getTransactionInformation xmlns="https://placetopay.com/soap/pse">
+                              <auth xmlns="">
+                                  <login>6dd490faf9cb87a9862245da41170ff2</login>
+                                  <tranKey>4f69c4a59d5bf4d61d5d887fb8ba599351f6d31a</tranKey>
+                                  <seed>2021-04-30T16:33:57+00:00</seed>
+                                  <!-- Optional -->
+                                  <additional>
+                                      <!-- Optional -->
+                                      <item>
+                                          <name>Additional</name>
+                                          <value>Info</value>
+                                      </item>
+                                  </additional>
+                              </auth>
+                              <transactionID xmlns="">1509847029</transactionID>
+                          </getTransactionInformation>
+                      </Body>
+                  </Envelope>
+  /getBankList:
+    post:
+      summary: getBankList
+      operationId: post-getBankList
+      description: Obtiene la lista de bancos disponibles para el establecimiento de comercio en el sistema PSE de ACH Colombia.
+      parameters: []
+      requestBody:
+        content:
+          application/xml:
+            schema:
+              type: object
+              properties: {}
+            examples:
+              Ejemplo:
+                value: |-
+                  <Envelope xmlns="http://schemas.xmlsoap.org/soap/envelope/">
+                      <Body>
+                          <getBankList xmlns="https://placetopay.com/soap/pse">
+                              <auth xmlns="">
+                                  <login>6dd490faf9cb87a9862245da41170ff2</login>
+                                  <tranKey>3d37ea25e05c07d457f59a484563d806eeac973b</tranKey>
+                                  <seed>2021-04-30T14:38:39+00:00</seed>
+                                  <!-- Optional -->
+                                  <additional>
+                                      <!-- Optional -->
+                                      <item>
+                                          <name>Additional</name>
+                                          <value>Info</value>
+                                      </item>
+                                  </additional>
+                              </auth>
+                          </getBankList>
+                      </Body>
+                  </Envelope>
+components:
+  schemas: {}

@@ -1,0 +1,33 @@
+{
+  "items": [
+    {
+      "type": "item",
+      "title": "Autenticación",
+      "uri": "docs/Autenticación.md"
+    },
+    {
+      "type": "item",
+      "title": "Flujo de integración PSE",
+      "uri": "docs/Flujo-de-integración-PSE.md"
+    },
+    {
+      "type": "item",
+      "title": "Métodos de interfaz PSE",
+      "uri": "docs/Métodos-de-interfaz-PSE.md"
+    },
+    {
+      "type": "item",
+      "title": "Estructura de datos PSE",
+      "uri": "docs/Estructura-de-datos-PSE.md"
+    },
+    {
+      "type": "divider",
+      "title": "APIS"
+    },
+    {
+      "type": "item",
+      "title": "PSE",
+      "uri": "reference/PSE.yaml"
+    }
+  ]
+}
